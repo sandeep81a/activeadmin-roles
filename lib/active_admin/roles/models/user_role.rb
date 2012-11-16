@@ -2,7 +2,7 @@ class ActiveAdmin::UserRole < ActiveRecord::Base
   self.table_name = "active_admin_user_roles"
 
   belongs_to :user, :polymorphic => true
-  belongs_to :role
+  belongs_to :role, :class_name => "ActiveAdmin::Role"
 
   validates_uniqueness_of :role_id,
 	  :scope => [:user_id, :user_type],
