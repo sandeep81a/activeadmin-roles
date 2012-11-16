@@ -1,0 +1,57 @@
+<%= form_for [:admin, @role], :url => (@role.new_record? ? admin_roles_path : admin_role_path(@role)) do |f| %>
+
+  <%= semantic_fields_for @role do |rf| %>
+    <%= rf.inputs "Role Details", :name %>
+  <% end %>
+
+  <div class="columns">
+    <% @available_permissions.in_groups(2, false).each do |permission_sets| %>
+
+      <div class="column" style="width: 48%; margin-right: 2%;">
+        <% permission_sets.each do |set| %>
+
+          <% presenter = PermissionsPresenter.new(set) %>
+
+          <fieldset class="inputs">
+            <legend><span><%= presenter.name %></span></legend>
+
+            <table class="permissions-table">
+              <thead>
+                <tr>
+                  <th class="permission-title-column"></th>
+
+                  <% presenter.headers.each do |header| %>
+                    <th class="permission-column"><%= header %></th>
+                  <% end %>
+
+                </tr>
+              </thead>
+              <tbody>
+                <% presenter.rows.each do |row| %>
+                  <tr>
+                    <td><%= row.name %></td>
+                    <% row.permissions.each do |permission| %>
+                      <td>
+                        <% if permission %>
+                            <%= check_box_tag "active_admin_role[permissions][]", permission, @role.has_permission?(permission) %>
+                        <% end %>
+                      </td>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+          </fieldset>
+
+        <% end %>
+      </div>
+    <% end %>
+
+    <div style="clear:both;"></div>
+  </div>
+
+
+  <%= submit_tag "Save" %>
+
+<% end %>
