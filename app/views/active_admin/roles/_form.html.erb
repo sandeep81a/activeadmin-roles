@@ -10,7 +10,7 @@
       <div class="column" style="width: 48%; margin-right: 2%;">
         <% permission_sets.each do |set| %>
 
-          <% presenter = PermissionsPresenter.new(set) %>
+          <% presenter = ::ActiveAdmin::Roles::PermissionsPresenter.new(set) %>
 
           <fieldset class="inputs">
             <legend><span><%= presenter.name %></span></legend>

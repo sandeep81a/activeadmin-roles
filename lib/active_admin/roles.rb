@@ -9,6 +9,7 @@ module ActiveAdmin
   module Roles
 
     autoload :Permissions, "active_admin/roles/permissions"
+    autoload :PermissionsPresenter, "active_admin/roles/permissions_presenter"
     autoload :AuthorizationAdapter, "active_admin/roles/authorization_adapter"
 
 	def self.included(dsl)
