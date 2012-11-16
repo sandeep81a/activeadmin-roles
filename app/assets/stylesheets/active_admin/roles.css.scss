@@ -1,0 +1,17 @@
+body.active_admin {
+
+  .permissions-table {
+    width: inherit;
+
+    th { background: none; }
+
+    .permission-title-column {
+      width: 150px;
+    }
+    .permission-column {
+      width: 50px;
+    }
+
+  }
+
+}
