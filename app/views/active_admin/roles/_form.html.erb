@@ -18,18 +18,17 @@
             <table class="permissions-table">
               <thead>
                 <tr>
-                  <th class="permission-title-column"></th>
+                  <th><!-- blank --></th>
 
                   <% presenter.headers.each do |header| %>
-                    <th class="permission-column"><%= header %></th>
+                    <th class="permission-column-title"><%= header %></th>
                   <% end %>
-
                 </tr>
               </thead>
               <tbody>
                 <% presenter.rows.each do |row| %>
                   <tr>
-                    <td><%= row.name %></td>
+                    <td class="permission-row-title"><%= row.name %></td>
                     <% row.permissions.each do |permission| %>
                       <td>
                         <% if permission %>

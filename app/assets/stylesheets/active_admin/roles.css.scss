@@ -5,11 +5,13 @@ body.active_admin {
 
     th { background: none; }
 
-    .permission-title-column {
+    .permission-row-title {
       width: 150px;
+      cursor: pointer;
     }
-    .permission-column {
-      width: 50px;
+    .permission-column-title {
+      width: 70px;
+      cursor: pointer;
     }
 
   }
