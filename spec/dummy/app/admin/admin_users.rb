@@ -1,3 +1,6 @@
+ActiveAdmin.register AdminUser, :namespace => :root do
+end
+
 ActiveAdmin.register AdminUser do     
   menu parent: "Manage Users"
 

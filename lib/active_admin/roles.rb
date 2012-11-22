@@ -8,34 +8,10 @@ module ActiveAdmin
 
   module Roles
 
-    autoload :Permissions, "active_admin/roles/permissions"
+    autoload :Permissions,          "active_admin/roles/permissions"
     autoload :PermissionsPresenter, "active_admin/roles/permissions_presenter"
     autoload :AuthorizationAdapter, "active_admin/roles/authorization_adapter"
-
-	def self.included(dsl)
-	  dsl.before_filter only: [:new, :edit, :update, :create] do
-		all_namespaces = ActiveAdmin.application.namespaces.values
-		@available_permissions = ActiveAdmin::Roles::Permissions.new(all_namespaces).all
-	  end
-
-	  dsl.send :form, :partial => "/active_admin/roles/form"
-
-	  dsl.filter :name
-	  dsl.filter :permissions
-
-	  dsl.send :index do
-        selectable_column
-		column :name, :sortable => :name do |role|
-		  link_to role.name, resource_path(role)
-		end
-
-		default_actions
-	  end
-
-      dsl.send :show do
-        render :partial => "/active_admin/roles/show"
-      end
-	end
+    autoload :UI,                   "active_admin/roles/ui"
 
   end
 end
