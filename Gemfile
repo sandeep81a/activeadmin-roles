@@ -4,7 +4,7 @@ gemspec
 
 gem 'sqlite3'
 gem 'pry-rails'
-gem 'activeadmin', path: "~/code/personal/active_admin"
+gem 'activeadmin', git: "git://github.com/gregbell/active_admin", :ref => "authorization-adapter"
 
 group :test do
   gem 'rspec-rails', '~> 2.5'
