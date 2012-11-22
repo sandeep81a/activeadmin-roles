@@ -27,4 +27,10 @@ class ActiveAdmin::UserRole < ActiveRecord::Base
 	  map(&:role)
   end
 
+  def self.find_users(role)
+	where(:role_id => role.id)
+	  includes(:user).
+	  map(&:user)
+  end
+
 end

@@ -2,11 +2,10 @@ require 'spec_helper'
 
 describe ActiveAdmin::UserRole do
 
-  # TODO: locking...?
+  let(:user) { FactoryGirl.create(:admin_user) }
+  let(:role) { ActiveAdmin::Role.create!(:name => "Admin", :permissions => []) }
 
   describe ".set_roles" do
-	let(:user) { FactoryGirl.create(:admin_user) }
-	let(:role) { ActiveAdmin::Role.create!(:name => "Admin", :permissions => []) }
 
 	it "should store a new role for a user" do
 	  expect {
@@ -33,6 +32,20 @@ describe ActiveAdmin::UserRole do
 
 	  ActiveAdmin::UserRole.find_roles(user).should == [role_2]
 	end
+
+  end
+
+  describe ".find_users" do
+
+    it "should return [] when no users on the role" do
+      ActiveAdmin::UserRole.find_users(role).should == []
+    end
+
+    it "should return a user when assigned" do
+      ActiveAdmin::UserRole.set_roles(user, [role])
+
+      ActiveAdmin::UserRole.find_users(role).should == [user]
+    end
 
   end
 

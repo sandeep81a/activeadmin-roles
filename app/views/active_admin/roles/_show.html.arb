@@ -1,0 +1,34 @@
+extend ActiveAdmin::Views::Pages::Show::DefaultMainContent
+
+columns do
+
+  column do
+    panel "Role Details" do
+      attributes_table_for resource do
+        row :name
+        row :permissions do
+          ul do
+            resource.permissions.each do |permission|
+              li permission.titleize.gsub(".", " - ")
+            end
+          end
+        end
+      end
+    end
+
+    active_admin_comments_for resource
+  end
+
+  column do
+    panel "Users with Role" do
+      ul do
+        ActiveAdmin::RoleService.new.get_users(resource).each do |user|
+          li do
+            auto_link user
+          end
+        end
+      end
+    end
+  end
+
+end

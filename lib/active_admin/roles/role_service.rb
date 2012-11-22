@@ -14,6 +14,10 @@ module ActiveAdmin
 	  @roles_repo.find_roles(user)
 	end
 
+    def get_users(role)
+      @roles_repo.find_users(role)
+    end
+
 	def get_permissions(user)
 	  roles = get_roles(user)
 	  permissions = roles.map(&:permissions)

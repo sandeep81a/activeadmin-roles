@@ -24,12 +24,17 @@ module ActiveAdmin
 	  dsl.filter :permissions
 
 	  dsl.send :index do
+        selectable_column
 		column :name, :sortable => :name do |role|
 		  link_to role.name, resource_path(role)
 		end
 
 		default_actions
 	  end
+
+      dsl.send :show do
+        render :partial => "/active_admin/roles/show"
+      end
 	end
 
   end

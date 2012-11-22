@@ -28,6 +28,17 @@ describe ActiveAdmin::RoleService do
 
   end
 
+  describe ".get_users" do
+
+    it "should message the repository to get the roles" do
+      ActiveAdmin::UserRole.should_receive(:find_users).
+        with(role).and_return([])
+
+      service.get_users(role).should == []
+    end
+
+  end
+
   describe ".get_permissions" do
 
 	it "should return [] when no roles" do
