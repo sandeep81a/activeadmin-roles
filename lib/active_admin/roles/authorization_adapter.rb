@@ -20,7 +20,7 @@ module ActiveAdmin
       def permission_name(action, subject)
         namespace = resource.namespace
 
-        ActiveAdmin::Roles::Permissions.qualified_name(namespace, subject, action)
+        ActiveAdmin::Roles::PermissionsNaming.qualified_name(namespace, subject, action)
       end
 
     end
