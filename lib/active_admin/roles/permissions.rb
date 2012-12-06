@@ -19,27 +19,6 @@ module ActiveAdmin
         @namespaces = namespaces
       end
 
-      # TODO: Could save the additional lookup. Needs some serious refactoring :)
-      def self.qualified_name(namespace, subject, action)
-        aa_resource = if subject.is_a?(ActiveAdmin::Resource)
-                        subject
-                      else
-                        namespace.resource_for(subject) || namespace.resource_for(subject.class)
-                      end
-
-        resource_name = if aa_resource
-                          aa_resource.resource_name.pluralize
-                        elsif subject.is_a?(ActiveAdmin::Page)
-                          subject.resource_name
-                        elsif subject.is_a?(Class)
-                          subject.name.pluralize
-                        else
-                          subject.class.name.pluralize
-                        end
-
-        "#{namespace.name}.#{resource_name.gsub(" ", "").underscore}.#{action}"
-      end
-
       def all
         permissions = []
 
@@ -106,7 +85,7 @@ module ActiveAdmin
         end
 
         perms.map do |perm|
-          Permissions.qualified_name(ns, resource, perm)
+          PermissionsNaming.qualified_name(ns, resource, perm)
         end
       end
 

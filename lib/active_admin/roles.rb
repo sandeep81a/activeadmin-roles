@@ -10,6 +10,7 @@ module ActiveAdmin
 
     autoload :Permissions,          "active_admin/roles/permissions"
     autoload :PermissionsPresenter, "active_admin/roles/permissions_presenter"
+    autoload :PermissionsNaming,    "active_admin/roles/permissions_naming"
     autoload :AuthorizationAdapter, "active_admin/roles/authorization_adapter"
     autoload :UI,                   "active_admin/roles/ui"
 
