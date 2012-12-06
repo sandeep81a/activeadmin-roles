@@ -7,31 +7,31 @@ describe ActiveAdmin::UserRole do
 
   describe ".set_roles" do
 
-	it "should store a new role for a user" do
-	  expect {
-		ActiveAdmin::UserRole.set_roles(user, [role])
-	  }.to change(ActiveAdmin::UserRole, :count).by(1)
-	end
+    it "should store a new role for a user" do
+      expect {
+        ActiveAdmin::UserRole.set_roles(user, [role])
+      }.to change(ActiveAdmin::UserRole, :count).by(1)
+    end
 
-	it "should not create new records when user already in role" do
-	  ActiveAdmin::UserRole.set_roles(user, [role])
+    it "should not create new records when user already in role" do
+      ActiveAdmin::UserRole.set_roles(user, [role])
 
-	  expect {
-		ActiveAdmin::UserRole.set_roles(user, [role])
-	  }.to_not change(ActiveAdmin::UserRole, :count)
-	end
+      expect {
+        ActiveAdmin::UserRole.set_roles(user, [role])
+      }.to_not change(ActiveAdmin::UserRole, :count)
+    end
 
-	it "should remove roles that are no longer required" do
-	  ActiveAdmin::UserRole.set_roles(user, [role])
+    it "should remove roles that are no longer required" do
+      ActiveAdmin::UserRole.set_roles(user, [role])
 
-	  role_2 = ActiveAdmin::Role.create! :name => "Role 2", :permissions => []
+      role_2 = ActiveAdmin::Role.create! :name => "Role 2", :permissions => []
 
-	  expect {
-		ActiveAdmin::UserRole.set_roles(user, [role_2])
-	  }.to_not change(ActiveAdmin::UserRole, :count)
+      expect {
+        ActiveAdmin::UserRole.set_roles(user, [role_2])
+      }.to_not change(ActiveAdmin::UserRole, :count)
 
-	  ActiveAdmin::UserRole.find_roles(user).should == [role_2]
-	end
+      ActiveAdmin::UserRole.find_roles(user).should == [role_2]
+    end
 
   end
 

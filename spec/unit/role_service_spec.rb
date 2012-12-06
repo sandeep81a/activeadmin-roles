@@ -8,23 +8,23 @@ describe ActiveAdmin::RoleService do
 
   describe ".set_roles" do
 
-	it "should message the repository to set the roles" do
-	  ActiveAdmin::UserRole.should_receive(:set_roles).
-		with(user, [role])
+    it "should message the repository to set the roles" do
+      ActiveAdmin::UserRole.should_receive(:set_roles).
+        with(user, [role])
 
-	  service.set_roles(user, [role])
-	end
+      service.set_roles(user, [role])
+    end
 
   end
 
   describe ".get_roles" do
 
-	it "should message the repository to get the roles" do
-	  ActiveAdmin::UserRole.should_receive(:find_roles).
-		with(user).and_return([])
+    it "should message the repository to get the roles" do
+      ActiveAdmin::UserRole.should_receive(:find_roles).
+        with(user).and_return([])
 
-	  service.get_roles(user).should == []
-	end
+      service.get_roles(user).should == []
+    end
 
   end
 
@@ -41,20 +41,20 @@ describe ActiveAdmin::RoleService do
 
   describe ".get_permissions" do
 
-	it "should return [] when no roles" do
-	  ActiveAdmin::UserRole.should_receive(:find_roles).
-		with(user).and_return([])
+    it "should return [] when no roles" do
+      ActiveAdmin::UserRole.should_receive(:find_roles).
+        with(user).and_return([])
 
-	  service.get_permissions(user).should == []
-	end
+      service.get_permissions(user).should == []
+    end
 
-	it "should return the unique permissions" do
-	  ActiveAdmin::UserRole.should_receive(:find_roles).
-		with(user).and_return([mock(:permissions => ["user.create"]), 
-							   mock(:permissions => ["user.create"])])
+    it "should return the unique permissions" do
+      ActiveAdmin::UserRole.should_receive(:find_roles).
+        with(user).and_return([mock(:permissions => ["user.create"]), 
+                               mock(:permissions => ["user.create"])])
 
-	  service.get_permissions(user).should == ["user.create"]
-	end
+      service.get_permissions(user).should == ["user.create"]
+    end
 
   end
 

@@ -6,7 +6,7 @@ class ActiveAdmin::Role < ActiveRecord::Base
   serialize :permissions
 
   def has_permission?(permission)
-	Array(permissions).include?(permission)
+    Array(permissions).include?(permission)
   end
 
 end
