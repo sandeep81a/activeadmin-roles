@@ -4,6 +4,8 @@ module ActiveAdmin::RoleConcern
   included do
     attr_accessible :name, :permissions
 
+    validates_presence_of :name
+
     serialize :permissions
   end
 

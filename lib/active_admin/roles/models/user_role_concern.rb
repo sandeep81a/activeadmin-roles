@@ -1,3 +1,5 @@
+# Include this module into the Active Record model
+# that stores the assigned roles.
 module ActiveAdmin::UserRoleConcern
   extend ActiveSupport::Concern
 
