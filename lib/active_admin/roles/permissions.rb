@@ -9,7 +9,7 @@ module ActiveAdmin
     # of the passed in namespaces.
     #
     #     ns = ActiveAdmin.application.namespace(:admin)
-    #     ActiveAdmin::Roles::Permissions.new([admin]).all 
+    #     ActiveAdmin::Roles::Permissions.new([admin]).all
     #       #=> [<PermissionSet name='Admin: Users' permissions=['admin.users.read']>]
     #
     class Permissions
@@ -82,6 +82,10 @@ module ActiveAdmin
 
         if actions.include?("destroy")
           perms << ActiveAdmin::Auth::DESTROY
+        end
+
+        [:collection_actions, :member_actions].each do |action_method|
+          perms += resource.send(action_method).collect(&:name) if resource.respond_to?(action_method)
         end
 
         perms.map do |perm|
