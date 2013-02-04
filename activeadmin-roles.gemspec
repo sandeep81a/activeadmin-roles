@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = ActiveAdmin::Roles::VERSION
   s.authors     = ["REVERB"]
   s.email       = ["info@reverbhq.com"]
-  s.homepage    = "reverbhq.com"
+  s.homepage    = "http://reverbhq.com"
   s.summary     = "A roles and permission system for Active Admin"
   s.description = "A roles and permission system for Active Admin"
 

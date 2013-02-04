@@ -17,7 +17,7 @@ module ActiveAdmin
       end
 
       def resource_name
-        name ||= aa_resource.resource_name.pluralize if aa_resource
+        name ||= aa_resource.resource_class.model_name.gsub(/^.*::/, '').pluralize if aa_resource
         name ||= subject.resource_name if subject.is_a?(ActiveAdmin::Page)
         name ||= subject.name.pluralize if subject.is_a?(Class)
         name ||= subject.class.name.pluralize

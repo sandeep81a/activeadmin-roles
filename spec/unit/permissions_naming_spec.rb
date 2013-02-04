@@ -27,6 +27,12 @@ describe ActiveAdmin::Roles::PermissionsNaming do
       qualify(AdminUser.new).should == "admin.admin_users.read"
     end
 
+    it "should not qualify a registered resource by its alias" do
+      namespace.register AdminUser, as: "SuperUser"
+
+      qualify(AdminUser).should == "admin.admin_users.read"
+    end
+
     it 'should qualify a page resource' do
       page = namespace.register_page "Dashboard"
 
