@@ -45,7 +45,13 @@ module ActiveAdmin
         grouped = {}
 
         namespace.resources.each do |resource|
-          name = resource.parent_menu_item_name || resource.plural_resource_label
+          # AA does not include the #parent_menu_item_name method anymore. This is here
+          # to keep supporting older versions of AA until it is merged into master
+          name = if resource.respond_to?(:menu_item_options)
+                   resource.menu_item_options[:parent] || resource.plural_resource_label
+                 else
+                   resource.parent_menu_item_name || resource.plural_resource_label
+                 end
 
           grouped[name] ||= []
           grouped[name] << resource
