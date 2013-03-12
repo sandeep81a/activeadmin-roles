@@ -48,6 +48,23 @@ describe ActiveAdmin::Roles::Permissions do
     ]
   end
 
+  it "should use a permission name if passed into the action" do
+    app.register AdminUser do
+      member_action :activate, permission: :read do
+      end
+    end
+
+    permissions = ActiveAdmin::Roles::Permissions.new([namespace]).all
+
+    permissions.should == [
+      ActiveAdmin::Roles::PermissionSet.new("Admin: Admin Users",
+                                             ["admin.admin_users.read",
+                                               "admin.admin_users.create",
+                                               "admin.admin_users.update",
+                                               "admin.admin_users.destroy"])
+    ]
+  end
+
   it "should register multiple flat resources" do
     app.register AdminUser
     app.register ActiveAdmin::Role, :as => "Role" do

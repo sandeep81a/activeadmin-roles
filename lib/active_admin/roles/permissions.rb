@@ -70,28 +70,23 @@ module ActiveAdmin
 
       def permissions_for_resource(resource)
         ns = resource.namespace
+        controller = resource.controller.new
         actions = resource.controller.action_methods
 
-        perms = []
+        perms = Set.new
 
-        if actions.include?("index") || actions.include?("show")
-          perms << ActiveAdmin::Auth::READ
-        end
-
-        if actions.include?("new") || actions.include?("create")
-          perms << ActiveAdmin::Auth::CREATE
-        end
-
-        if actions.include?("edit") || actions.include?("update")
-          perms << ActiveAdmin::Auth::UPDATE
-        end
-
-        if actions.include?("destroy")
-          perms << ActiveAdmin::Auth::DESTROY
+        %w{ index show new create edit update destroy }.each do |action|
+          if actions.include? action
+            perms << controller.action_to_permission(action)
+          end
         end
 
         [:collection_actions, :member_actions].each do |action_method|
-          perms += resource.send(action_method).collect(&:name) if resource.respond_to?(action_method)
+          if resource.respond_to?(action_method)
+            resource.send(action_method).each do |action|
+              perms << controller.action_to_permission(action.name)
+            end
+          end
         end
 
         perms.map do |perm|
