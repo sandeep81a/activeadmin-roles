@@ -15,7 +15,7 @@ module ActiveAdmin
         permission_store = ActiveAdmin::Roles::ResourcePermissionStore[active_admin_config]
         return false unless permission_store
 
-        permission_store[action]
+        permission_store[action.to_sym]
       end
 
     end

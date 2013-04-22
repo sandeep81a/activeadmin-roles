@@ -37,10 +37,10 @@ ActiveAdmin::Event.subscribe ActiveAdmin::Resource::RegisterEvent do |resource|
   store = ActiveAdmin::Roles::ResourcePermissionStore[resource] = {}
 
   resource.member_actions.each do |action|
-    store[action.name] = action.options[:permission]
+    store[action.name.to_sym] = action.options[:permission]
   end
 
   resource.collection_actions.each do |action|
-    store[action.name] = action.options[:permission]
+    store[action.name.to_sym] = action.options[:permission]
   end
 end
