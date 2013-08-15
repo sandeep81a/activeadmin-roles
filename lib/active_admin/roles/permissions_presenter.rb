@@ -12,7 +12,11 @@ module ActiveAdmin
       end
 
       def headers
-        header_keys.map{|action| action.titleize }
+        header_keys.map do |action|
+          perm = @set.permissions.first || 'unknown.unknown.unknown'
+          pieces = perm.split('.')
+          I18n.t(action, scope: "permission_headers.#{pieces[0]}.#{pieces[1]}", default: action.titleize)
+        end
       end
 
       def rows
