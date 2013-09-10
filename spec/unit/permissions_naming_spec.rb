@@ -8,7 +8,7 @@ describe ActiveAdmin::Roles::PermissionsNaming do
     app
   end
 
-  let(:namespace){ app.namespace(:admin) }
+  let(:namespace) { app.namespace(:admin) }
 
   describe ".qualified_name" do
     def qualify(subject)
