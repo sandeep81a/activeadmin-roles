@@ -3,7 +3,6 @@ module ActiveAdmin
 
     PermissionSet = Struct.new(:name, :permissions)
 
-
     # The Permissions class exists to collect all of the available permissions
     # within the Active Admin application. It retreives permissions for any
     # of the passed in namespaces.
@@ -11,9 +10,7 @@ module ActiveAdmin
     #     ns = ActiveAdmin.application.namespace(:admin)
     #     ActiveAdmin::Roles::Permissions.new([admin]).all
     #       #=> [<PermissionSet name='Admin: Users' permissions=['admin.users.read']>]
-    #
     class Permissions
-
       # @param [<ActiveAdmin::Namespace>] namespaces
       def initialize(namespaces)
         @namespaces = namespaces
@@ -29,6 +26,19 @@ module ActiveAdmin
         end
 
         sort_permissions permissions
+      end
+
+      def self.non_controller_permissions
+        @non_controller_permissions ||= []
+      end
+
+      # Using this method you can add permissions which are not related to controller actions
+      #
+      #   ActiveAdmin::Roles::Permissions.register_non_controller_permission "admin.safety_notifications.perform_site_deliveries"
+      def self.register_non_controller_permission(*permissions)
+        permissions.map(&:to_s).each do |permission|
+          non_controller_permissions.exclude?(permission) && non_controller_permissions << permission
+        end
       end
 
       private
@@ -65,7 +75,25 @@ module ActiveAdmin
           permissions_for_resource(resource)
         end
 
-        permissions.flatten
+        add_non_controller_permissions_to(permissions.flatten)
+      end
+
+      def add_non_controller_permissions_to(permissions)
+        self.class.non_controller_permissions.each do |permission|
+          permissions.any? { |contr_perm| resource_name_for(contr_perm) == resource_name_for(permission) } &&
+            permissions.exclude?(permission) &&
+            permissions << permission
+        end
+        permissions
+      end
+
+      # @param [String] permission
+      # @return [String] namespace and resource name for a permission
+      #
+      #   resource_name_for("root.sites.read")
+      #   => "root.sites"
+      def resource_name_for(permission)
+        permission.sub /\.[^\.]*$/, ''
       end
 
       def permissions_for_resource(resource)
