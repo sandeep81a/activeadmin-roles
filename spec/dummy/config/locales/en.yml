@@ -3,3 +3,8 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    models:
+      admin_user: Dude
+      role:
+        other: Rooooooooles
