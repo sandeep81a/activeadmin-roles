@@ -1,1 +1,16 @@
 = Active Admin Roles
+
+=== Instructions for releasing activeadmin-roles gem
+
+To build a new version:
+
+1) Bump version in
+
+  lib/active_admin/roles/version.rb
+
+2) Build and publish gem
+
+  gem build activeadmin-roles.gemspec
+  # => produces something like activeadmin-roles.0.0.2.gem
+  curl -F package=@activeadmin-roles-0.0.2.gem https://push.fury.io/s8QkJSUG7ZrrLstvW7WP/
+
